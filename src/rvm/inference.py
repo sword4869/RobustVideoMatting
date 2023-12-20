@@ -19,7 +19,8 @@ from torchvision import transforms
 from typing import Optional, Tuple
 from tqdm.auto import tqdm
 
-from inference_utils import VideoReader, VideoWriter, ImageSequenceReader, ImageSequenceWriter
+from rvm.inference_utils import VideoReader, VideoWriter, ImageSequenceReader, ImageSequenceWriter
+from rvm.model import MattingNetwork
 
 def convert_video(model,
                   input_source: str,
@@ -158,6 +159,7 @@ def auto_downsample_ratio(h, w):
 
 
 class Converter:
+    
     def __init__(self, variant: str, checkpoint: str, device: str):
         self.model = MattingNetwork(variant).eval().to(device)
         self.model.load_state_dict(torch.load(checkpoint, map_location=device))
@@ -168,10 +170,8 @@ class Converter:
     def convert(self, *args, **kwargs):
         convert_video(self.model, device=self.device, dtype=torch.float32, *args, **kwargs)
     
-if __name__ == '__main__':
+def main():
     import argparse
-    from model import MattingNetwork
-    
     parser = argparse.ArgumentParser()
     parser.add_argument('--variant', type=str, required=True, choices=['mobilenetv3', 'resnet50'])
     parser.add_argument('--checkpoint', type=str, required=True)
@@ -188,7 +188,8 @@ if __name__ == '__main__':
     parser.add_argument('--num-workers', type=int, default=0)
     parser.add_argument('--disable-progress', action='store_true')
     args = parser.parse_args()
-    
+
+
     converter = Converter(args.variant, args.checkpoint, args.device)
     converter.convert(
         input_source=args.input_source,
@@ -204,4 +205,5 @@ if __name__ == '__main__':
         progress=not args.disable_progress
     )
     
-    
+if __name__ == '__main__':
+    main()
