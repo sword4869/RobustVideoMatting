@@ -33,6 +33,15 @@ $ rvm --variant resnet50 \
 --output-video-mbps 4 \
 --seq-chunk 1
 
+rvm --variant resnet50 \
+--checkpoint /home/lab/Documents/RobustVideoMatting/model/rvm_resnet50.pth \
+--device cuda \
+--input-source imgs \
+--output-type png_sequence \
+--output-alpha "alpha" \
+--output-video-mbps 4 \
+--seq-chunk 1
+
 # powershell
 $ rvm --variant resnet50 `
 --checkpoint D:\git\RobustVideoMatting\model\rvm_resnet50.pth `
