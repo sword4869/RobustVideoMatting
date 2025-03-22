@@ -8,8 +8,8 @@ setup(
     url="https://github.com/sword4869/RobustVideoMatting",
     install_requires=[
         'tqdm',
-        'av>=11.0.0',
-        'pims>=0.6.1'
+        'av==11.0.0',
+        'pims==0.6.1'
     ],
     entry_points={
         'console_scripts': [
