@@ -7,8 +7,6 @@ setup(
     long_description_content_type="text/markdown",
     url="https://github.com/sword4869/RobustVideoMatting",
     install_requires=[
-        'torch',
-        'torchvision',
         'tqdm',
         'av>=11.0.0',
         'pims>=0.6.1'
